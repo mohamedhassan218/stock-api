@@ -1,0 +1,73 @@
+# .NET related
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.log
+*.userosscache
+*.userprefs
+*.suo
+*.sln.docstates
+*.db
+
+# Build results
+bin/
+obj/
+out/
+*.log
+
+# Enable "build/" folder but not its content
+/build/*
+
+# Ignore project-specific development files
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+*.tlog
+
+# Ignore tool-specific files
+*.gpState
+/.idea/
+/.vscode/
+/.ionide/
+/*.code-workspace
+
+# DotNet specific files
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Rider
+.idea/
+
+# Visual Studio
+.vs/
+*.vscode
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Temporary files
+*.tmp
+*.temp
+~*
+
+# Other
+*.ncrunchproject
+*.ncrunchsolution
+*.ntvs_analysis.dat
+*.orleans.config
+*.csproj.user
+*.fsproj.user
+*.vbproj.user
