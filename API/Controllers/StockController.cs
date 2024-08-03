@@ -20,7 +20,8 @@ namespace API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var stocks = await _stockRepo.GelAllAsync();
-            return Ok(stocks);
+            var stocksDto = stocks.Select(s => s.ToStockDto());
+            return Ok(stocksDto);
         }
 
         // GET api/stock?id=
