@@ -71,3 +71,4 @@ $RECYCLE.BIN/
 *.csproj.user
 *.fsproj.user
 *.vbproj.user
+.fake
