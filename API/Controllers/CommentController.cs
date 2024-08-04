@@ -23,6 +23,9 @@ namespace API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comments = await _commentRepo.GetAllAsync();
             var commentsDto = comments.Select(c => c.ToCommentDto());
             return Ok(commentsDto);
@@ -32,6 +35,9 @@ namespace API.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comment = await _commentRepo.GetByIdAsync(id);
             return (comment == null) ? NotFound() : Ok(comment.ToCommentDto());
         }
@@ -40,6 +46,9 @@ namespace API.Controllers
         [HttpPost("{stockId:int}")]
         public async Task<IActionResult> Create([FromRoute] int stockId, CreateCommentDto createCommentDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             if (!await _stockRepo.StockExist(stockId))
                 return BadRequest("Stock doesn't exist.");
             var comment = createCommentDto.ToCommentFromCreateDto(stockId);
@@ -52,6 +61,9 @@ namespace API.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentDto updateCommentDto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comment = await _commentRepo.UpdateAsync(id, updateCommentDto.ToCommentFromUpdateDto());
             if (comment != null)
                 return Ok(comment.ToCommentDto());
@@ -63,6 +75,9 @@ namespace API.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var comment = await _commentRepo.DeleteAsync(id);
             if (comment != null)
                 return Ok(comment);
