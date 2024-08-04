@@ -16,6 +16,7 @@ namespace API.Controllers
             _stockRepo = stockRepo;
         }
 
+        // GET api/stock
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -24,7 +25,7 @@ namespace API.Controllers
             return Ok(stocksDto);
         }
 
-        // GET api/stock?id=
+        // GET api/stock?id=x
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
@@ -41,7 +42,7 @@ namespace API.Controllers
             return CreatedAtAction(nameof(GetById), new { id = stock.Id }, stock.ToStockDto());
         }
 
-        // PUT api/stock?id=
+        // PUT api/stock?id=x
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockDto updateStockDto)
@@ -52,7 +53,7 @@ namespace API.Controllers
             return NotFound();
         }
 
-        // DELETE api/stock?id=
+        // DELETE api/stock?id=x
         [HttpDelete]
         [Route("{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)

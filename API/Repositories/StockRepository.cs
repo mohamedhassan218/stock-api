@@ -17,7 +17,7 @@ namespace API.Repositories
 
         public async Task<List<Stock>> GelAllAsync()
         {
-            return await _context.Stock.ToListAsync();
+            return await _context.Stock.Include(c => c.Comments).ToListAsync();
         }
 
         public async Task<Stock> CreateAsync(Stock stock)
@@ -41,7 +41,7 @@ namespace API.Repositories
 
         public async Task<Stock?> GetByIdAsync(int id)
         {
-            var stock = await _context.Stock.FirstOrDefaultAsync(s => s.Id == id);
+            var stock = await _context.Stock.Include(c => c.Comments).FirstOrDefaultAsync(s => s.Id == id);
             if (stock != null)
                 return stock;
             return null;
@@ -62,6 +62,12 @@ namespace API.Repositories
                 return stock;
             }
             return null;
+        }
+
+        public async Task<bool> StockExist(int id)
+        {
+            var stock = await _context.Stock.FirstOrDefaultAsync(s => s.Id == id);
+            return (stock == null) ? false : true;
         }
     }
 }
