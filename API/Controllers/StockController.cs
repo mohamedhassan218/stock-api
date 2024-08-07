@@ -2,6 +2,7 @@ using API.Dtos.Stock;
 using API.Helpers;
 using API.Interfaces;
 using API.Mappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -19,6 +20,7 @@ namespace API.Controllers
 
         // GET api/stock
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll([FromQuery] QueryObject query)
         {
             if (!ModelState.IsValid)
@@ -31,6 +33,7 @@ namespace API.Controllers
 
         // GET api/stock?id=x
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -42,6 +45,7 @@ namespace API.Controllers
 
         // POST api/stock
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] CreateStockDto createStockDto)
         {
             if (!ModelState.IsValid)
@@ -55,6 +59,7 @@ namespace API.Controllers
         // PUT api/stock?id=x
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateStockDto updateStockDto)
         {
             if (!ModelState.IsValid)
@@ -69,6 +74,7 @@ namespace API.Controllers
         // DELETE api/stock?id=x
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)

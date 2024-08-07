@@ -3,6 +3,7 @@ using API.Interfaces;
 using API.Mappers;
 using API.Models;
 using API.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -21,6 +22,7 @@ namespace API.Controllers
 
         // GET api/comment
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             if (!ModelState.IsValid)
@@ -33,6 +35,7 @@ namespace API.Controllers
 
         // GET api/comment?id=x
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> GetById(int id)
         {
             if (!ModelState.IsValid)
@@ -44,6 +47,7 @@ namespace API.Controllers
 
         // POST api/comment?stockId=x
         [HttpPost("{stockId:int}")]
+        [Authorize]
         public async Task<IActionResult> Create([FromRoute] int stockId, CreateCommentDto createCommentDto)
         {
             if (!ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace API.Controllers
         // PUT api/comment?id=x
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateCommentDto updateCommentDto)
         {
             if (!ModelState.IsValid)
@@ -73,6 +78,7 @@ namespace API.Controllers
         // DELETE api/comment?id=x
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (!ModelState.IsValid)
