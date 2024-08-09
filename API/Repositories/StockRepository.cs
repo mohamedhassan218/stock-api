@@ -18,7 +18,7 @@ namespace API.Repositories
 
         public async Task<List<Stock>> GelAllAsync(QueryObject queryObject)
         {
-            var stocks = _context.Stock.Include(c => c.Comments).AsQueryable();
+            var stocks = _context.Stock.Include(c => c.Comments).ThenInclude(a => a.UserNavigation).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(queryObject.CompanyName))
                 stocks = stocks.Where(s => s.CompanyName.Contains(queryObject.CompanyName));

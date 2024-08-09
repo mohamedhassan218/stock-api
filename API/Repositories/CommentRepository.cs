@@ -1,12 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Data;
-using API.Dtos.Comment;
 using API.Interfaces;
 using API.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Repositories
@@ -40,12 +34,13 @@ namespace API.Repositories
 
         public async Task<List<Comment>> GetAllAsync()
         {
-            return await _context.Comments.ToListAsync();
+            return await _context.Comments.Include(c => c.UserNavigation).ToListAsync();
         }
 
         public async Task<Comment?> GetByIdAsync(int id)
         {
-            var comment = await _context.Comments.FirstOrDefaultAsync(c => c.Id == id);
+            var comment = await _context.Comments.Include(c => c.UserNavigation)
+                .FirstOrDefaultAsync(c => c.Id == id);
             return (comment == null) ? null : comment;
         }
 

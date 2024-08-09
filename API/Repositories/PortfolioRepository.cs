@@ -12,6 +12,7 @@ namespace API.Repositories
         {
             _context = applicationDbContext;
         }
+
         public async Task<List<Stock>> GetUserPortfolio(User user)
         {
             return await _context.Portfolios.Where(p => p.UserId == user.Id)

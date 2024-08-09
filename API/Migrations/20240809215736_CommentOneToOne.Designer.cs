@@ -4,6 +4,7 @@ using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240809215736_CommentOneToOne")]
+    partial class CommentOneToOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,15 +47,17 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<int>("User")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserNavigationId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StockId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserNavigationId");
 
                     b.ToTable("Comments");
                 });
@@ -200,13 +205,13 @@ namespace API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b2214e33-4ffb-431a-adfc-2daef7086e2d",
+                            Id = "b59692f4-5d16-4ce3-abde-ba061434db3b",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "a6ea0768-3108-43c7-8955-a57af51d997b",
+                            Id = "4b31da1b-953b-46bd-acb4-469dcfa21b92",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -326,9 +331,7 @@ namespace API.Migrations
 
                     b.HasOne("API.Models.User", "UserNavigation")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserNavigationId");
 
                     b.Navigation("Stock");
 

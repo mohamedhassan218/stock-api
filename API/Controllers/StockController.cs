@@ -27,7 +27,7 @@ namespace API.Controllers
                 return BadRequest(ModelState);
 
             var stocks = await _stockRepo.GelAllAsync(query);
-            var stocksDto = stocks.Select(s => s.ToStockDto());
+            var stocksDto = stocks.Select(s => s.ToStockDto()).ToList();
             return Ok(stocksDto);
         }
 
